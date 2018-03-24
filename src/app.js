@@ -3,8 +3,11 @@ const express = require("express");
 
 const app = express();
 
+app.set("view engine", "hbs");
+app.set('views', path.join(__dirname, 'views'));
+
 app.get("/", function (req, res) {
-  res.send("Hello World");
+  res.render("index.hbs");
 });
 
 module.exports = app;
