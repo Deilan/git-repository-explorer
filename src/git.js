@@ -19,7 +19,7 @@ function getTreeContents(treeIsh, path = '') {
   if (path == null) {
     throw new Error(`Parameter 'path' can't be null or undefined`);
   }
-  return exec(`git ls-tree -l ${treeIsh} ${path}`)
+  return exec(`git ls-tree -l '${treeIsh}' '${path}'`)
     .then(parseTreeContentsOutput);
 }
 
