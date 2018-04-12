@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Главная</title>
+</head>
+
+<body>
+  <ul>
+    {{#each directories}}
+    <li>{{this.file}}/</li>
+    {{/each}}
+    {{#each files}}
+    <li>{{this.file}}</li>
+    {{/each}}
+  </ul>
+</body>
+
+</html>
