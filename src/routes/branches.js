@@ -6,8 +6,8 @@ const git = require('../git');
 
 const router = Router();
 
-function deconstructPath(rawPath) {
-  const [branch, ...pathParts] = rawPath.split('/');
+function deconstructSegments(segmentsString) {
+  const [branch, ...pathParts] = segmentsString.split('/');
   const path = pathParts.map(part => `${part}/`).join('');
   return { branch, path };
 }
@@ -27,11 +27,11 @@ router.get('/', (req, res) => {
     });
 });
 
-router.get('/:path(*)', (req, res) => {
+router.get('/:segments(*)', (req, res) => {
   const {
     branch,
     path
-  } = deconstructPath(req.params.path);
+  } = deconstructSegments(req.params.segments);
   git.getBranchList()
     .then((branches) => {
       if (!branches.includes(branch)) {
@@ -41,16 +41,16 @@ router.get('/:path(*)', (req, res) => {
         });
       }
       return git.getTreeContents(branch, path)
-        .then(list => {
-          if(list.length === 0) {
+        .then(entries => {
+          if(entries.length === 0) {
             return res.status(404).render('error.hbs', {
               status: 404,
               message: `Branch '${branch}' with path '${path}' were not found`
             });
           }
           return res.render('tree-contents.hbs', {
-            directories: list.filter(item => item.type === 'tree'),
-            files: list.filter(item => item.type === 'blob')
+            directories: entries.filter(item => item.type === 'tree'),
+            files: entries.filter(item => item.type === 'blob')
           });
         })
     })
