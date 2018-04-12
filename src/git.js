@@ -1,7 +1,4 @@
 const os = require('os');
-const {
-  splitOrEmptyArray
-} = require('./string-utils');
 
 const {
   exec
