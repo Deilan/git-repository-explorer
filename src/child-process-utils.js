@@ -2,20 +2,25 @@ const util = require('util');
 const childProcess = require('child_process');
 const os = require('os');
 
-const EOL_ENDING_REGEXP = new RegExp(`${os.EOL}$`);
-const exec = util.promisify(childProcess.exec);
+const ENDING_EOL_REGEX = new RegExp(`${os.EOL}$`);
+const execAsync = util.promisify(childProcess.exec);
 
-function normalize(output) {
-  return output.replace(EOL_ENDING_REGEXP, '')
+function convertToArray(output) {
+  // remove ending EOL
+  output = output.replace(ENDING_EOL_REGEX, '');
+  return output !== '' ? output.split(os.EOL) : [];
 }
+
+function exec(command) {
+  return execAsync(command)
+    .then(({
+        stdout
+      }) => convertToArray(stdout),
+      ({
+        stderr
+      }) => Promise.reject(convertToArray(stderr)));
+}
+
 module.exports = {
-  exec: function (command) {
-    return exec(command)
-      .then(({
-          stdout
-        }) => normalize(stdout),
-        ({
-          stderr
-        }) => Promise.reject(normalize(stderr)));
-  }
-}
+  exec
+};

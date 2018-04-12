@@ -9,7 +9,7 @@ const {
 
 function getBranchList() {
   return exec('git branch --list')
-    .then(parseBranchListOutput);
+    .then(outputLines => outputLines.map(line => line.substr(2)));
 }
 
 function getTreeContents(treeIsh, path = '') {
@@ -20,20 +20,12 @@ function getTreeContents(treeIsh, path = '') {
     throw new Error(`Parameter 'path' can't be null or undefined`);
   }
   return exec(`git ls-tree -l '${treeIsh}' '${path}'`)
-    .then(parseTreeContentsOutput);
+    .then(outputLines => {
+      return outputLines.map(line => parseTreeContentsLine(line, path))
+    });
 }
 
-function parseBranchListOutput(output) {
-  return splitOrEmptyArray(output, os.EOL)
-    .map(line => line.substr(2));
-}
-
-function parseTreeContentsOutput(output) {
-  return splitOrEmptyArray(output, os.EOL)
-    .map(parseTreeContentsLine);
-}
-
-function parseTreeContentsLine(line) {
+function parseTreeContentsLine(line, path) {
   // split by tab or whitespace
   const strings = line.split(/\s+/);
   // Output format:
@@ -46,7 +38,7 @@ function parseTreeContentsLine(line) {
     ...(strings[3] !== '-' && {
       objectSize: parseInt(strings[3], 10)
     }),
-    file: strings[4]
+    file: strings[4].replace(path, '')
   };
 }
 
