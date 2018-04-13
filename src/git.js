@@ -11,7 +11,7 @@ function getBranchList() {
 
 function getTreeContents(treeIsh, path = '') {
   if (!treeIsh) {
-    throw new Error(`Missing required parameter treeIsh`);
+    throw new Error(`Missing required parameter 'treeIsh'`);
   }
   if (path == null) {
     throw new Error(`Parameter 'path' can't be null or undefined`);
@@ -20,6 +20,10 @@ function getTreeContents(treeIsh, path = '') {
     .then(outputLines => {
       return outputLines.map(line => parseTreeContentsLine(line, path))
     });
+}
+
+function getFileContents(sha1) {
+  return exec(`git cat-file -p ${sha1}`);
 }
 
 function parseTreeContentsLine(line, path) {
@@ -58,5 +62,6 @@ function parseTreeContentsLine(line, path) {
 
 module.exports = {
   getBranchList,
-  getTreeContents
+  getTreeContents,
+  getFileContents
 }

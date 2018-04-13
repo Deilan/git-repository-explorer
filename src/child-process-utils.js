@@ -1,13 +1,16 @@
 const util = require('util');
-const childProcess = require('child_process');
 const os = require('os');
+const childProcess = require('child_process');
 
-const ENDING_EOL_REGEX = new RegExp(`${os.EOL}$`);
 const execAsync = util.promisify(childProcess.exec);
 
+const { removeTrailingEol } = require('./string-utils');
+
 function convertToArray(output) {
-  // remove ending EOL
-  output = output.replace(ENDING_EOL_REGEX, '');
+  if (!output) {
+    throw new Error(`Missing required parameter 'output'`);
+  }
+  output = removeTrailingEol(output);
   return output !== '' ? output.split(os.EOL) : [];
 }
 
