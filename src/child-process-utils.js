@@ -1,5 +1,5 @@
 const util = require('util');
-const os = require('os');
+const { EOL } = require('os');
 const childProcess = require('child_process');
 
 const execAsync = util.promisify(childProcess.exec);
@@ -11,7 +11,7 @@ function convertToArray(output) {
     throw new Error(`Missing required parameter 'output'`);
   }
   output = removeTrailingEol(output);
-  return output !== '' ? output.split(os.EOL) : [];
+  return output !== '' ? output.split(EOL) : [];
 }
 
 function exec(command) {

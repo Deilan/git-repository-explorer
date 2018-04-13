@@ -1,8 +1,11 @@
-const os = require('os');
+const { EOL } = require('os');
+const { basename } = require('path');
 
 const {
   exec
 } = require('./child-process-utils');
+
+const { spawn } = require('child_process');
 
 function getBranchList() {
   return exec('git branch --list')
@@ -26,6 +29,14 @@ function getFileContents(sha1) {
   return exec(`git cat-file -p ${sha1}`);
 }
 
+function getBlobStream(sha1) {
+  if (sha1 == null) {
+    throw new Error(`Parameter 'sha1' can't be null or undefined`);
+  }
+  const process = spawn('git', ['cat-file', 'blob', sha1]);
+  return process.stdout;
+}
+
 function parseTreeContentsLine(line, path) {
   // split by tab or whitespace
   const strings = line.split(/\s+/);
@@ -39,7 +50,7 @@ function parseTreeContentsLine(line, path) {
     ...(strings[3] !== '-' && {
       objectSize: parseInt(strings[3], 10)
     }),
-    file: strings[4].replace(path, '')
+    file: basename(strings[4])
   };
 }
 
@@ -63,5 +74,6 @@ function parseTreeContentsLine(line, path) {
 module.exports = {
   getBranchList,
   getTreeContents,
-  getFileContents
+  getFileContents,
+  getBlobStream
 }

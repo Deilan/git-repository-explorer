@@ -42,11 +42,11 @@ router.get('/', (req, res) => {
     });
 });
 
-router.get('/:segments(*)', (req, res) => {
+router.get('/:path(*)', (req, res) => {
   const {
     branch,
     path
-  } = deconstructPath(req.params.segments);
+  } = deconstructPath(req.params.path);
   git.getBranchList()
     .then((branches) => {
       if (!branches.includes(branch)) {
@@ -64,10 +64,8 @@ router.get('/:segments(*)', (req, res) => {
             });
           }
           if(entries.length === 1 && entries[0].type === 'blob') {
-            return git.getFileContents(entries[0].object)
-              .then(lines => {
-                res.send(lines.join('\n'));
-              });
+            res.contentType(entries[0].file);
+            return git.getBlobStream(entries[0].object).pipe(res);
           }
           return git.getTreeContents(branch, path && `${path}/`)
             .then((entries) => {

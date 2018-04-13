@@ -1,6 +1,6 @@
-const os = require('os');
+const { EOL } = require('os');
 
-const TRAILING_EOL_REGEX = new RegExp(`${os.EOL}$`);
+const TRAILING_EOL_REGEX = new RegExp(`${EOL}$`);
 
 function removeTrailingSlash(str) {
   return str.replace(/\/$/, '');
