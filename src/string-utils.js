@@ -2,6 +2,10 @@ const { EOL } = require('os');
 
 const TRAILING_EOL_REGEX = new RegExp(`${EOL}$`);
 
+function removeLeadingSlash(str) {
+  return str.replace(/^\//, '');
+}
+
 function removeTrailingSlash(str) {
   return str.replace(/\/$/, '');
 }
@@ -11,6 +15,7 @@ function removeTrailingEol(str) {
 }
 
 module.exports = {
+  removeLeadingSlash,
   removeTrailingSlash,
   removeTrailingEol
 };

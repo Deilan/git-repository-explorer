@@ -25,10 +25,6 @@ function getTreeContents(treeIsh, path = '') {
     });
 }
 
-function getFileContents(sha1) {
-  return exec(`git cat-file -p ${sha1}`);
-}
-
 function getBlobStream(sha1) {
   if (sha1 == null) {
     throw new Error(`Parameter 'sha1' can't be null or undefined`);
@@ -54,6 +50,21 @@ function parseTreeContentsLine(line, path) {
   };
 }
 
+function parseLogOutput(outputLines) {
+  return outputLines.map(line => {
+    const strings = line.split('\t');
+    return {
+      hash: strings[0],
+      subject: strings[1]
+    };
+  })
+}
+
+function getLog(branchName) {
+  return exec(`git log --pretty='%H\t%s' ${branchName}`)
+    .then(parseLogOutput);
+}
+
 // function getCurrentBranch() {
 //   return exec('git rev-parse --abbrev-ref HEAD')
 //     .then(({
@@ -74,6 +85,6 @@ function parseTreeContentsLine(line, path) {
 module.exports = {
   getBranchList,
   getTreeContents,
-  getFileContents,
-  getBlobStream
+  getBlobStream,
+  getLog
 }

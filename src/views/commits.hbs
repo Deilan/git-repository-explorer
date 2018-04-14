@@ -6,19 +6,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Главная</title>
+  <style>
+    body {
+      font-family: monospace;
+    }
+  </style>
 </head>
 
 <body>
-  <h1>Path: {{path}}</h1>
+  <h1>Commits</h1>
   <ul>
-    {{#if parentUrl}}
     <li><a href="{{parentUrl}}">../</a></li>
-    {{/if}}
-    {{#each directories}}
-    <li><a href="{{this.url}}">{{this.file}}/</a></li>
-    {{/each}}
-    {{#each files}}
-    <li><a href="{{this.url}}">{{this.file}}</a></li>
+    {{#each commits}}
+    <li><a href="{{this.url}}">{{this.hash}} {{this.subject}}</a></li>
     {{/each}}
   </ul>
 </body>
