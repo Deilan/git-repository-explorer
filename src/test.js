@@ -1,6 +1,6 @@
 const git = require('./git');
 
-git.getBranchList().then((x) => {
+git.getBranches().then((x) => {
   debugger;
   console.log(x);
 }).catch(err => {

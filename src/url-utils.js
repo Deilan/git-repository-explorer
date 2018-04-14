@@ -1,5 +1,5 @@
 const { resolve } = require('url');
-const { removeTrailingSlash } = require('./string-utils');
+const { removeTrailingSlash } = require('./utils/string');
 
 function getParentUrl(url) {
   url = removeTrailingSlash(url);

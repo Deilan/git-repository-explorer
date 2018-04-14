@@ -4,9 +4,9 @@ const childProcess = require('child_process');
 
 const execAsync = util.promisify(childProcess.exec);
 
-const { removeTrailingEol } = require('./string-utils');
+const { removeTrailingEol } = require('./string');
 
-function convertToArray(output) {
+function convertOutputToArray(output) {
   if (!output) {
     throw new Error(`Missing required parameter 'output'`);
   }
@@ -18,10 +18,10 @@ function exec(command) {
   return execAsync(command)
     .then(({
         stdout
-      }) => convertToArray(stdout),
+      }) => convertOutputToArray(stdout),
       ({
         stderr
-      }) => Promise.reject(convertToArray(stderr)));
+      }) => Promise.reject(convertOutputToArray(stderr)));
 }
 
 module.exports = {

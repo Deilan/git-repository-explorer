@@ -7,7 +7,7 @@ const urlUtils = require('../url-utils');
 const {
   removeLeadingSlash,
   removeTrailingSlash
-} = require('../string-utils');
+} = require('../utils/string');
 
 const git = require('../git');
 
@@ -27,7 +27,7 @@ function deconstructPath(path) {
 }
 
 router.get('/', (req, res) => {
-  git.getBranchList()
+  git.getBranches()
     .then(branchNames => {
       const branches = branchNames.map(branchName => ({
         name: branchName,
@@ -47,7 +47,7 @@ router.get('/', (req, res) => {
 
 router.get('/:branchName', (req, res) => {
   const branchName = req.params.branchName;
-  git.getBranchList()
+  git.getBranches()
     .then((branches) => {
       if (!branches.includes(branchName)) {
         return res.status(404).render('error.hbs', {
@@ -72,7 +72,7 @@ router.get('/:branchName', (req, res) => {
 
 router.get('/:branchName/commits', (req, res) => {
   const branchName = req.params.branchName;
-  git.getLog(branchName)
+  git.getCommits(branchName)
     .then(commits => {
       commits = commits.map(commit => ({
         ...commit,
@@ -91,7 +91,7 @@ router.get('/:branchName/commits/:commitHash', (req, res) => {
     commitHash
   } = req.params;
   const path = ''; //removeLeadingSlash(req.params.path);
-  return git.getTreeContents(commitHash, '')
+  return git.getTreeContents()
     .then(entries => {
       entries = entries.map(entry => ({
         ...entry,
@@ -168,7 +168,7 @@ router.get('/:branchName/tree:path(*)', (req, res) => {
 // router.get('/:branchName/:path(*)', (req, res) => {
 //   const branchName = req.params.branchName;
 //   const path = req.params.path;
-//   git.getBranchList()
+//   git.getBranches()
 //     .then((branches) => {
 //       if (!branches.includes(branchName)) {
 //         return res.status(404).render('error.hbs', {
