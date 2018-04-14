@@ -1,5 +1,5 @@
 const { resolve } = require('url');
-const { removeTrailingSlash } = require('./utils/string');
+const { removeTrailingSlash } = require('./string');
 
 function getParentUrl(url) {
   url = removeTrailingSlash(url);
@@ -8,7 +8,7 @@ function getParentUrl(url) {
   return url;
 }
 
-function join() {
+function joinSegments() {
   return Array.from(arguments)
     .map(arg => removeTrailingSlash(arg))
     .join('/');
@@ -16,5 +16,5 @@ function join() {
 
 module.exports = {
   getParentUrl,
-  join
+  joinSegments
 };

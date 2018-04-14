@@ -2,8 +2,10 @@ const {
   Router
 } = require('express');
 
-const url = require('url');
-const urlUtils = require('../url-utils');
+const {
+  getParentUrl,
+  joinSegments
+} = require('../utils/url');
 const {
   removeLeadingSlash,
   removeTrailingSlash
@@ -31,7 +33,7 @@ router.get('/', (req, res) => {
     .then(branchNames => {
       const branches = branchNames.map(branchName => ({
         name: branchName,
-        url: urlUtils.join(req.originalUrl, branchName)
+        url: joinSegments(req.originalUrl, branchName)
       }));
       res.render('branches.hbs', {
         branches
@@ -57,9 +59,9 @@ router.get('/:branchName', (req, res) => {
       }
       return res.render('branch.hbs', {
         branchName,
-        parentUrl: urlUtils.getParentUrl(req.originalUrl),
-        treeUrl: urlUtils.join(req.originalUrl, 'tree'),
-        commitsUrl: urlUtils.join(req.originalUrl, 'commits')
+        parentUrl: getParentUrl(req.originalUrl),
+        treeUrl: joinSegments(req.originalUrl, 'tree'),
+        commitsUrl: joinSegments(req.originalUrl, 'commits')
       });
     })
     .catch(err => {
@@ -76,11 +78,11 @@ router.get('/:branchName/commits', (req, res) => {
     .then(commits => {
       commits = commits.map(commit => ({
         ...commit,
-        url: urlUtils.join(req.originalUrl, commit.hash)
+        url: joinSegments(req.originalUrl, commit.hash)
       }));
       return res.render('commits.hbs', {
         commits,
-        parentUrl: urlUtils.getParentUrl(req.originalUrl)
+        parentUrl: getParentUrl(req.originalUrl)
       });
     })
 });
@@ -91,15 +93,15 @@ router.get('/:branchName/commits/:commitHash', (req, res) => {
     commitHash
   } = req.params;
   const path = ''; //removeLeadingSlash(req.params.path);
-  return git.getTreeContents()
+  return git.getTreeContents(commitHash)
     .then(entries => {
       entries = entries.map(entry => ({
         ...entry,
-        url: urlUtils.join(req.originalUrl, entry.file)
+        url: joinSegments(req.originalUrl, entry.file)
       }));
       return res.render('tree-contents.hbs', {
         path: `/${path}`,
-        parentUrl: urlUtils.getParentUrl(req.originalUrl),
+        parentUrl: getParentUrl(req.originalUrl),
         directories: entries.filter(item => item.type === 'tree'),
         files: entries.filter(item => item.type === 'blob')
       });
@@ -122,11 +124,11 @@ router.get('/:branchName/commits/:commitHash/:path(*)', (req, res) => {
         .then((entries) => {
           entries = entries.map(entry => ({
             ...entry,
-            url: urlUtils.join(req.originalUrl, entry.file)
+            url: joinSegments(req.originalUrl, entry.file)
           }));
           return res.render('tree-contents.hbs', {
             path: `/${path}`,
-            parentUrl: urlUtils.getParentUrl(req.originalUrl),
+            parentUrl: getParentUrl(req.originalUrl),
             directories: entries.filter(item => item.type === 'tree'),
             files: entries.filter(item => item.type === 'blob')
           });
@@ -153,11 +155,11 @@ router.get('/:branchName/tree:path(*)', (req, res) => {
         .then((entries) => {
           entries = entries.map(entry => ({
             ...entry,
-            url: urlUtils.join(req.originalUrl, entry.file)
+            url: joinSegments(req.originalUrl, entry.file)
           }));
           return res.render('tree-contents.hbs', {
             path: `/${path}`,
-            parentUrl: urlUtils.getParentUrl(req.originalUrl),
+            parentUrl: getParentUrl(req.originalUrl),
             directories: entries.filter(item => item.type === 'tree'),
             files: entries.filter(item => item.type === 'blob')
           });
@@ -192,10 +194,10 @@ router.get('/:branchName/tree:path(*)', (req, res) => {
 //             .then((entries) => {
 //               entries = entries.map(entry => ({
 //                 ...entry,
-//                 url: urlUtils.join(req.originalUrl, entry.file)
+//                 url: joinSegments(req.originalUrl, entry.file)
 //               }));
 //               return res.render('tree-contents.hbs', {
-//                 parentUrl: urlUtils.getParentUrl(req.originalUrl),
+//                 parentUrl: getParentUrl(req.originalUrl),
 //                 directories: entries.filter(item => item.type === 'tree'),
 //                 files: entries.filter(item => item.type === 'blob')
 //               });
