@@ -12,13 +12,12 @@ const {
 } = require('../utils/string');
 
 const git = require('../git');
+const { throwIfUndefinedOrNull } = require('../utils/guard');
 
 const router = Router();
 
 function deconstructPath(path) {
-  if (!path) {
-    throw new Error(`Missing required parameter 'path'`);
-  }
+  throwIfUndefinedOrNull('path', path);
   path = removeTrailingSlash(path);
   const [branch, ...pathParts] = path.split('/');
   const objectPath = pathParts.join('/');

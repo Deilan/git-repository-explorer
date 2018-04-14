@@ -6,7 +6,10 @@ const execAsync = util.promisify(childProcess.exec);
 
 const { removeTrailingEol } = require('./string');
 
+const { throwIfUndefinedOrNull } = require('./guard');
+
 function exec(command) {
+  throwIfUndefinedOrNull('command', command);
   return execAsync(command)
     .then(({
         stdout
@@ -17,9 +20,7 @@ function exec(command) {
 }
 
 function convertOutputToArray(output) {
-  if (!output) {
-    throw new Error(`Missing required parameter 'output'`);
-  }
+  throwIfUndefinedOrNull('output', output);
   output = removeTrailingEol(output);
   return output !== '' ? output.split(EOL) : [];
 }
