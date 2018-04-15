@@ -8,13 +8,6 @@ function getParentUrl(url) {
   return url;
 }
 
-function joinSegments() {
-  return Array.from(arguments)
-    .map(arg => removeTrailingSlash(arg))
-    .join('/');
-}
-
 module.exports = {
-  getParentUrl,
-  joinSegments
+  getParentUrl
 };
