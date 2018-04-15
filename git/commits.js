@@ -1,5 +1,6 @@
 const { exec } = require("./common");
 const { throwIfUndefinedOrNull } = require('../utils/guard');
+const { rejectWithFirstItem } = require('./helpers');
 
 // using tab as a separator
 const SEPARATOR = '\t';
@@ -11,7 +12,7 @@ const FORMAT = `'%H${SEPARATOR}%s'`
 function getLog(path = '') {
   throwIfUndefinedOrNull('path', path);
   return exec(`log --pretty=${FORMAT} ${path}`)
-    .then(parseLogOutput, (stderrArr) => Promise.reject(stderrArr[0]));
+    .then(parseLogOutput, rejectWithFirstItem);
 }
 
 function parseLogOutput(outputLines) {

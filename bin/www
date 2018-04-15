@@ -9,6 +9,8 @@ const debug = require('debug')('04-nodejs:server');
 const http = require('http');
 const nconf = require('nconf');
 
+const git = require('../git');
+
 nconf.argv()
   .env()
   .file({ file: './config.json' });
@@ -20,6 +22,13 @@ nconf.argv()
 const port = normalizePort(nconf.get('port') || '3000');
 app.set('port', port);
 nconf.set('port', port);
+
+// validate repository path config
+git.getBranches()
+  .catch(err => {
+    console.error(err);
+    process.exit(1);
+  });
 
 /**
  * Create HTTP server.

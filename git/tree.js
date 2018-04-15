@@ -2,14 +2,16 @@ const { basename } = require("path");
 
 const { throwIfUndefinedOrNull } = require('../utils/guard');
 const { exec } = require("./common");
+const { rejectWithFirstItem } = require('./helpers');
 
 function getTreeContents(treeIsh, path = '') {
   throwIfUndefinedOrNull('treeIsh', treeIsh);
   throwIfUndefinedOrNull('path', path);
   return exec(`ls-tree -l '${treeIsh}' '${path}'`)
-    .then(stdoutArr => {
-      return stdoutArr.map(line => parseTreeContentsLine(line, path))
-    }, stderrArr => Promise.reject(stderrArr[0]));
+    .then(
+      stdoutArr => stdoutArr.map(line => parseTreeContentsLine(line, path)),
+      rejectWithFirstItem
+    );
 }
 
 function parseTreeContentsLine(line, path) {

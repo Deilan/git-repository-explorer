@@ -1,11 +1,20 @@
 const { exec } = require("./common");
 const { throwIfUndefinedOrNull } = require('../utils/guard');
+const { rejectWithFirstItem } = require('./helpers');
+
+function getCurrentBranch() {
+  return exec(`rev-parse --abbrev-ref HEAD`)
+    .then(
+      stdoutArr => stdoutArr[0],
+      rejectWithFirstItem
+    );
+}
 
 function getBranches() {
   return exec(`branch --list`)
     .then(
       stdoutArr => parseBranchesListOutput(stdoutArr),
-      stderrArr => Promise.reject(stderrArr[0])
+      rejectWithFirstItem
     );
 }
 
