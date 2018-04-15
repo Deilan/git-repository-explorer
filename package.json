@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "./bin/www",
   "scripts": {
-    "start": "cross-env NODE_ENV=production node ./bin/www",
+    "start": "cross-env NODE_ENV=production npm run build && node ./bin/www",
     "dev": "cross-env NODE_ENV=development DEBUG=04-nodejs:* gulp dev",
     "build": "gulp build",
     "test": "echo \"Error: no test specified\" && exit 1",
