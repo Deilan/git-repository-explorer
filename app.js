@@ -20,13 +20,13 @@ app.set('view engine', 'hbs');
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'assets')));
 
 app.use((req, res, next) => {
   req.getParentUrl = () => req.parentUrl || getParentUrl(req.originalUrl) || '/';
   req.getChildUrl = (path) => urlJoin(req.originalUrl, path);
   next();
-})
+});
 
 app.use('/', indexRouter);
 app.use('/branches', branchesRouter);

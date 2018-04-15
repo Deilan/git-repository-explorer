@@ -1,4 +1,14 @@
 {
   "verbose": false,
-  "ext": "js,json"
+  "ext": "css,js,hbs",
+  "watch": [
+    "bin",
+    "controllers",
+    "git",
+    "public",
+    "routes",
+    "utils",
+    "views",
+    "app.js"
+  ]
 }
