@@ -1,0 +1,8 @@
+<ul>
+    {{#each directories}}
+    <li><a href="{{this.url}}">{{this.file}}/</a></li>
+    {{/each}}
+    {{#each files}}
+    <li><a href="{{this.url}}">{{this.file}}</a></li>
+    {{/each}}
+</ul>
