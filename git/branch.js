@@ -1,5 +1,4 @@
 const { exec } = require("./common");
-const { buildGitCommand } = require('./common');
 const { throwIfUndefinedOrNull } = require('../utils/guard');
 
 function getBranches() {

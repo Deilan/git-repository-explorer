@@ -1,7 +1,5 @@
-const { EOL } = require("os");
 const { basename } = require("path");
 
-const { buildGitCommand } = require('./common');
 const { throwIfUndefinedOrNull } = require('../utils/guard');
 const { exec } = require("./common");
 

@@ -11,8 +11,8 @@ const commonGuard = (req, res, next) => {
     .catch(err => next(createError(500, err)));
 };
 
-const index = (req, res, next) => {
-  branches = req.branches.map(branch => ({
+const index = (req, res) => {
+  const branches = req.branches.map(branch => ({
     name: branch,
     url: req.getChildUrl(branch)
   }));
@@ -33,7 +33,7 @@ const detailsGuard = (req, res, next) => {
   next();
 };
 
-const details = (req, res, next) => {
+const details = (req, res) => {
     res.render('branch-details.hbs', {
       title: `Branch '${req.branch}'`,
       parentUrl: req.getParentUrl(),

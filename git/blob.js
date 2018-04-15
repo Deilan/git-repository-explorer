@@ -1,7 +1,6 @@
 const { spawn } = require('./common');
 
 const {
-  throwIfUndefinedOrNull,
   throwIfFalsy
 } = require('../utils/guard');
 

@@ -13,7 +13,7 @@ const commonGuard = (req, res, next) => {
       req.treeIsh = treeIsh;
       next();
     })
-    .catch(err => next(createError(404, `Commit '${treeIsh}' not found`)));
+    .catch(() => next(createError(404, `Commit '${treeIsh}' not found`)));
 };
 
 const treeContents = (req, res, next) => {

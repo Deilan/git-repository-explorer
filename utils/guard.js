@@ -5,7 +5,7 @@ function throwIfUndefinedOrNull(paramName, paramValue) {
 }
 
 function throwIfFalsy(paramName, paramValue) {
-  if (!Boolean(paramValue)) {
+  if (!paramValue) {
     throw new Error(`Parameter '${paramName}' should have truthy value`);
   }
 }

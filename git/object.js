@@ -1,5 +1,4 @@
 const { exec } = require("./common");
-const { buildGitCommand } = require('./common');
 
 function getObjectType(object) {
   return exec(`cat-file -t ${object}`)

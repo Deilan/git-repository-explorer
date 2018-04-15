@@ -1,5 +1,4 @@
 const { exec } = require("./common");
-const { buildGitCommand } = require('./common');
 
 function getRepositoryName() {
   return exec(`rev-parse --show-toplevel`)
