@@ -1,10 +1,17 @@
 {
-  "name": "express-generator-sample",
-  "version": "0.0.0",
-  "private": true,
+  "name": "04-nodejs",
+  "version": "1.0.0",
+  "main": "./bin/www",
   "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node ./bin/www"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/deilan-shri-msk-2018/04-nodejs.git"
+  },
+  "author": "deilan",
+  "license": "MIT",
   "dependencies": {
     "debug": "3.1.0",
     "express": "4.16.3",
