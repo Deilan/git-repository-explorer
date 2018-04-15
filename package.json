@@ -3,10 +3,10 @@
   "version": "1.0.0",
   "main": "./bin/www",
   "scripts": {
+    "start": "cross-env NODE_ENV=production node ./bin/www",
+    "dev": "cross-env NODE_ENV=development DEBUG=04-nodejs:* nodemon",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node ./bin/www",
-    "lint": "eslint .",
-    "dev": "nodemon --config ./nodemon.json"
+    "lint": "eslint ."
   },
   "repository": {
     "type": "git",
@@ -15,6 +15,7 @@
   "author": "deilan",
   "license": "MIT",
   "dependencies": {
+    "cross-env": "^5.1.4",
     "debug": "3.1.0",
     "eslint": "4.19.1",
     "express": "4.16.3",
