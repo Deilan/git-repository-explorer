@@ -58,7 +58,8 @@ const sendBlobOrTree = (req, res, next) => {
     return;
   }
   if(req.tree) {
-    const title = req.treePath !== '' ?
+    let title = 'tree path ';
+    title += req.treePath !== '' ?
       `/${req.treePath}/` :
       '/';
     res.render('tree.hbs', {
