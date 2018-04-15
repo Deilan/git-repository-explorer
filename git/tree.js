@@ -1,13 +1,14 @@
 const { EOL } = require("os");
 const { basename } = require("path");
 
+const { buildGitCommand } = require('./common');
 const { throwIfUndefinedOrNull } = require('../utils/guard');
-const { exec } = require("../utils/child-process");
+const { exec } = require("./common");
 
 function getTreeContents(treeIsh, path = '') {
   throwIfUndefinedOrNull('treeIsh', treeIsh);
   throwIfUndefinedOrNull('path', path);
-  return exec(`git ls-tree -l '${treeIsh}' '${path}'`)
+  return exec(`ls-tree -l '${treeIsh}' '${path}'`)
     .then(stdoutArr => {
       return stdoutArr.map(line => parseTreeContentsLine(line, path))
     }, stderrArr => Promise.reject(stderrArr[0]));

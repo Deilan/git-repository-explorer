@@ -1,4 +1,5 @@
-const { exec } = require("../utils/child-process");
+const { exec } = require("./common");
+const { buildGitCommand } = require('./common');
 const { throwIfUndefinedOrNull } = require('../utils/guard');
 
 // using tab as a separator
@@ -10,7 +11,7 @@ const FORMAT = `'%H${SEPARATOR}%s'`
 
 function getLog(path = '') {
   throwIfUndefinedOrNull('path', path);
-  return exec(`git log --pretty=${FORMAT} ${path}`)
+  return exec(`log --pretty=${FORMAT} ${path}`)
     .then(parseLogOutput, (stderrArr) => Promise.reject(stderrArr[0]));
 }
 

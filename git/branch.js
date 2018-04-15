@@ -1,9 +1,9 @@
-const { exec } = require("../utils/child-process");
-
+const { exec } = require("./common");
+const { buildGitCommand } = require('./common');
 const { throwIfUndefinedOrNull } = require('../utils/guard');
 
 function getBranches() {
-  return exec('git branch --list')
+  return exec(`branch --list`)
     .then(
       stdoutArr => parseBranchesListOutput(stdoutArr),
       stderrArr => Promise.reject(stderrArr[0])

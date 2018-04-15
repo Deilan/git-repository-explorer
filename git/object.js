@@ -1,7 +1,8 @@
-const { exec } = require("../utils/child-process");
+const { exec } = require("./common");
+const { buildGitCommand } = require('./common');
 
 function getObjectType(object) {
-  return exec(`git cat-file -t ${object}`)
+  return exec(`cat-file -t ${object}`)
     .then(
       stdoutArr => stdoutArr[0],
       stderrArr => Promise.reject(stderrArr[0])

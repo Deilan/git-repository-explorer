@@ -1,6 +1,4 @@
-const {
-  spawn
-} = require("child_process");
+const { spawn } = require('./common');
 
 const {
   throwIfUndefinedOrNull,
@@ -9,7 +7,7 @@ const {
 
 function getBlobStream(hash) {
   throwIfFalsy('hash', hash);
-  const process = spawn('git', ['cat-file', 'blob', hash]);
+  const process = spawn(['cat-file', 'blob', hash]);
   return process.stdout;
 }
 

@@ -1,7 +1,8 @@
-const { exec } = require("../utils/child-process");
+const { exec } = require("./common");
+const { buildGitCommand } = require('./common');
 
 function getRepositoryName() {
-  return exec('git rev-parse --show-toplevel')
+  return exec(`rev-parse --show-toplevel`)
     .then(
       stdoutArr => stdoutArr[0],
       stderrArr => Promise.reject(stderrArr[0])
