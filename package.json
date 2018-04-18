@@ -7,6 +7,7 @@
     "dev": "cross-env NODE_ENV=development DEBUG=04-nodejs:* gulp dev",
     "build": "gulp build",
     "test": "mocha ./**/*.test.js",
+    "test:hermione": "hermione ./hermione",
     "lint": "eslint ."
   },
   "repository": {
@@ -20,6 +21,7 @@
     "debug": "3.1.0",
     "eslint": "4.19.1",
     "express": "4.16.3",
+    "express-blank-favicon": "1.0.1",
     "hbs": "4.0.1",
     "http-errors": "1.6.3",
     "morgan": "1.9.0",
@@ -32,7 +34,9 @@
     "gulp-clean-css": "^3.9.3",
     "gulp-nodemon": "^2.2.1",
     "gulp-uglify": "^3.0.0",
+    "hermione": "0.65.2",
     "mocha": "5.1.1",
-    "nodemon": "1.17.3"
+    "nodemon": "1.17.3",
+    "selenium-standalone": "6.14.0"
   }
 }
