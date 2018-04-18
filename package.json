@@ -6,7 +6,7 @@
     "start": "cross-env NODE_ENV=production npm run build && node ./bin/www",
     "dev": "cross-env NODE_ENV=development DEBUG=04-nodejs:* gulp dev",
     "build": "gulp build",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha ./**/*.test.js",
     "lint": "eslint ."
   },
   "repository": {
@@ -27,10 +27,12 @@
     "url-join": "4.0.0"
   },
   "devDependencies": {
+    "chai": "4.1.2",
     "gulp": "4.0.0",
     "gulp-clean-css": "^3.9.3",
     "gulp-nodemon": "^2.2.1",
     "gulp-uglify": "^3.0.0",
+    "mocha": "5.1.1",
     "nodemon": "1.17.3"
   }
 }
