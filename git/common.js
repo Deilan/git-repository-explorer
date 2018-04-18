@@ -6,7 +6,7 @@ const { spawn } = require("child_process");
 const GIT_COMMAND = 'git';
 
 function getRepository() {
-  return nconf.get('repositoryPath');
+  return nconf.get('REPOSITORY_PATH');
 }
 
 function getDirChangeOption() {

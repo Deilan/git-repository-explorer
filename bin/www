@@ -19,9 +19,9 @@ nconf.argv()
  * Get port from environment and store in Express.
  */
 
-const port = normalizePort(nconf.get('port') || '3000');
-app.set('port', port);
-nconf.set('port', port);
+const port = normalizePort(nconf.get('PORT') || '3000');
+app.set('PORT', port);
+nconf.set('PORT', port);
 
 // validate repository path config
 git.getBranches()
@@ -40,7 +40,7 @@ const server = http.createServer(app);
  * Listen on provided port, on all network interfaces.
  */
 
-server.listen(port, nconf.get('hostname'));
+server.listen(port, nconf.get('HOST'));
 server.on('error', onError);
 server.on('listening', onListening);
 

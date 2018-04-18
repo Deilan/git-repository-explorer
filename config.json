@@ -1,5 +1,5 @@
 {
-  "repositoryPath": "",
-  "hostname": "",
-  "port": 3000
+  "REPOSITORY_PATH": "",
+  "HOST": "",
+  "PORT": 3000
 }
