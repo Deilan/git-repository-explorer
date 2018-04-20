@@ -1,7 +1,4 @@
-FROM node:carbon
-
-ENV HOST=0.0.0.0
-ENV PORT=3000
+FROM node:slim
 
 WORKDIR ./
 
