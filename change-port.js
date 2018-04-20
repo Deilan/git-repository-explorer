@@ -4,8 +4,8 @@ const path = './config.json';
 
 const config = require(path);
 
-if (process.env.PORT) {
-  config.PORT = parseInt(process.env.PORT, 10);
+if (process.argv[2]) {
+  config.PORT = parseInt(process.argv[2], 10);
 }
 
 fs.writeFileSync(path, JSON.stringify(config, null, 2));

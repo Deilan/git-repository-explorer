@@ -10,6 +10,6 @@ COPY . .
 
 EXPOSE $PORT
 
-CMD PORT=$PORT node change-port.js
+CMD node change-port.js $PORT
 
 CMD npm start
