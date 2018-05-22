@@ -8,4 +8,6 @@ RUN npm install
 
 COPY . .
 
+COPY .git ./
+
 CMD [ "npm", "start" ]
