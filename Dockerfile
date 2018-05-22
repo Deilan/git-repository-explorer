@@ -1,6 +1,6 @@
-FROM node:slim
+FROM node:carbon
 
-WORKDIR ./
+WORKDIR /usr/src/app
 
 COPY package*.json ./
 
@@ -8,6 +8,4 @@ RUN npm install
 
 COPY . .
 
-EXPOSE $PORT
-
-CMD node change-port.js $PORT && npm start
+CMD [ "npm", "start" ]
