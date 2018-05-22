@@ -19,7 +19,7 @@ nconf.argv()
  * Get port from environment and store in Express.
  */
 
-const port = normalizePort(nconf.get('PORT') || '3000');
+const port = normalizePort(process.env.PORT || nconf.get('PORT') || '3000');
 app.set('PORT', port);
 nconf.set('PORT', port);
 

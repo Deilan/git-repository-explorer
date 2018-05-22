@@ -9,12 +9,12 @@ node_js:
 git:
   depth: 1
 
-install:
-  - npm install
-
 cache:
   directories:
     - node_modules
+
+install:
+  - npm install
 
 script:
   - npm run lint

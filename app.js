@@ -30,10 +30,10 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use('/', indexRouter);
-app.use('/branches', branchesRouter);
-app.use('/tree', treeRouter);
-app.use('/commits', commitsRouter);
+// app.use('/', indexRouter);
+// app.use('/branches', branchesRouter);
+// app.use('/tree', treeRouter);
+// app.use('/commits', commitsRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
