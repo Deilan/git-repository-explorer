@@ -6,8 +6,8 @@ COPY package*.json ./
 
 RUN npm install
 
-COPY . .
+RUN git clone --mirror https://github.com/deilan-shri-msk-2018/04-nodejs.git .git
 
-RUN git clone --mirror https://github.com/deilan-shri-msk-2018/04-nodejs.git
+COPY . .
 
 CMD [ "npm", "start" ]
