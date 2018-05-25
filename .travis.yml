@@ -9,12 +9,12 @@ node_js:
 git:
   depth: 1
 
-install:
-  - npm install
-
 cache:
   directories:
     - node_modules
+
+install:
+  - npm install
 
 script:
   - npm run lint
@@ -27,3 +27,5 @@ deploy:
   api_key:
     secure: HygT33tMFu/EYFa1RIUnaDfzhFjCbG6u+RWEgbORgs4mfBKWl2B497qk1OLRiUI4tdXLV1q2EVpacJ1nROcul5GdYxN4Qx8tIVMBYEVhF71oCU5Secj3bT469/DeF42W0SrlOkCUhWURzNmdlU4wgviktsA+VIYrFYzIrhD+AftVdmUgjWi1Fn92rGAreB1yMuAkHM1Vr8AVmEGtOwiqd4UABPh63kPSws679w6s5YgCGMwvFdMZUHip8xE0fqjenP13OchR0Q96nd90CAo/pFKS/6ZD+YRGBcoA5ex3RVmSnAw2CDxQ5fWSTY6UfcwBSoBJ6T89JwsCqggt3mk370Ww0ZeNacNZjsqIoHTbLVPCSNNdjD/1NWDfmc7XVpZ4qpJUCAsThl//fQJuxPbnmD6vLiRGclfQ/ZOO+8X+npmb2omUyzb2FT6sLRDDuvEYDfuNEBCYuV7FqJkL2VdLfFLueGUYEf5ENwN9A9hEYqTzVue5YkxS/1Uxxk2Z2UBSEKfu4DaNUfvAu1KM48c2y2bQTtiwcLfl19/ogpBiNTOGKv+xMagr94zogh4r/mk2Xc0YLP74HVoz7zWoWir6JX62XbHnGGGfpY8suQbRjRkogz1Jm1LABIo59cwTQsRMTq+kx2JLthfB5ycv91AAT/DQHPTNoQL7LdcbLiIaw/g=
   skip_cleanup: true
+  on:
+    branch: master

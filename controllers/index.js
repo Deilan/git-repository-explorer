@@ -6,7 +6,7 @@ const index = (req, res, next) => {
   git.getRepositoryName()
     .then(repository => {
       res.render('index.hbs', {
-        title: `Repository ${repository}`,
+        title: `Repository ${repository || ''}`.trimRight(),
         branchesUrl: req.getChildUrl('branches'),
         commitsUrl: req.getChildUrl('commits')
       });
